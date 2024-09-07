@@ -1,5 +1,10 @@
 # Zip Page Extractor
 
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Release Version](https://img.shields.io/github/release/sarahcssiqueira/zip-page-extractor.svg)](https://github.com/sarahcssiqueira/zip-page-extractor/releases/latest)
+[![Support Level](https://img.shields.io/badge/support-may_take_time-yellow.svg)](#support-level)
+
 This project includes a set of Python scripts for extracting HTML, CSS, and JavaScript files from a specified URL and compressing them into a single ZIP archive.
 
 ## Installation
@@ -7,13 +12,13 @@ This project includes a set of Python scripts for extracting HTML, CSS, and Java
 - Clone the Repository:
 
 
-`git clone https://github.com/sarahcssiqueira/zip-page-extractor``
+`git clone https://github.com/sarahcssiqueira/zip-page-extractor`
 
 `cd zip-page-extractor`
 
 - Create a Virtual Environment (optional but recommended):
 
-`python -m venv venv``
+`python -m venv venv`
 
 `source venv/bin/activate`  # On Windows, use `venv\Scripts\activate`
 
