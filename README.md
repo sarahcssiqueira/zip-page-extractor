@@ -5,12 +5,17 @@
 [![Release Version](https://img.shields.io/github/release/sarahcssiqueira/zip-page-extractor.svg)](https://github.com/sarahcssiqueira/zip-page-extractor/releases/latest)
 [![Support Level](https://img.shields.io/badge/support-may_take_time-yellow.svg)](#support-level)
 
-Python-based tool for web scraping and content archiving, extracting HTML, CSS, and JavaScript files from a given URL. It also compresses the extracted files into a single ZIP archive for easy distribution. 
+A Python-based tool for web scraping and content archiving, extracting HTML, CSS, and JavaScript files from a given URL. It also compresses the extracted files into a single ZIP archive for easy distribution. 
+
+## Features
+
+- Extracts HTML, CSS, and JavaScript from a web page.
+- Compresses extracted files into a ZIP archive.
+- Supports both local command-line execution and web-based extraction via a form.
 
 ## Installation
 
 - Clone the Repository:
-
 
 `git clone https://github.com/sarahcssiqueira/zip-page-extractor`
 
@@ -30,56 +35,52 @@ Install the necessary Python packages using pip:
 
 ## Usage
 
-- Clone a .env-example file
+### Command-Line Usage
 
-Clone in the project root with the following contents:
+To run the extraction scripts individually:
 
-```
-BASE_URL=https://example.com
-OUTPUT_DIR=output
-ZIP_FILE=archive.zip
-```
+`python scripts/extract_html.py --url "https://example.com" --output-dir output`
 
-- Run the Extraction Scripts
+Extract CSS:
 
-    - Extract HTML:
+`python scripts/extract_css.py --url "https://example.com" --output-dir output`
 
-    `python extract-html.py --output-dir <output-directory>`
+Replace "https://example.com" with your target URL and output with your desired directory.
 
-    - Extract CSS:
+Compress the files:
 
-    `python extract-css.py --output-dir <output-directory>`
+After extracting, compress them into a ZIP archive:
 
-    - Extract Inline CSS:
+`python compress_files.py --output-dir output --zip-file archive.zip`
 
-    `python extract-inline-css.py --output-file <output-file>`
+- Running All Scripts with a Single Command
 
-    - Extract JavaScript:
+To run all extraction scripts (HTML, CSS, JavaScript) in a single command, use the provided run_all.py script. This will automatically run all the extraction processes and store the output in the specified directory.
 
-    `python extract-js.py --output-dir <output-directory>`
+`python run_all.py --url <your-url> --output-dir <output-directory>`
 
-    - Extract Inline JavaScript:
+This command will extract the HTML, CSS, and JavaScript files from https://example.com and store them in the output directory.
 
-    `python extract-inline-js.py --output-file <output-file>`
+### Web-Based Usage
 
-Replace <output-directory> with the desired directory for CSS and JavaScript files and <output-file> with the desired file names for inline CSS and JavaScript.
+Run the Flask web server:
 
-- Compress the Files:
+`python app.py`
 
-After extracting the files, run the compression script to create a ZIP archive:
+Access the web form:
 
-`python compress-files.py --output-dir <output-directory> --zip-file <zip-file-name>`
+Visit http://127.0.0.1:5000/ in your browser. Submit the URL to extract HTML, CSS, and JS files, and download the ZIP archive.
 
-Replace <output-directory> with the directory where the extracted files are located and <zip-file-name> with the desired name for the ZIP archive.
+Note: When using the web form, the provided URL will be used by all extraction scripts (HTML, CSS, JS). The URL in the .env file is only used when running the scripts locally without a provided URL.
 
-## Scripts List
+## Scripts Overview
 
-- **extract-html.py:** Extracts HTML content from the URL and saves it to a file in the specified directory.
-- **extract-css.py:** Extracts linked CSS files from the URL and saves them in the specified directory.
-- **extract-inline_css.py:** Extracts inline CSS styles from the HTML content and saves them to a specified file.
-- **extract-js.py:** Extracts linked JavaScript files from the URL and saves them in the specified directory.
-- **extract-inline_js.py:** Extracts inline JavaScript from the HTML content and saves them to a specified file.
-- **compress-files.py:** Compresses all extracted files into a ZIP archive, saving it with the specified name.
+- **extract_html.py:** Extracts HTML content from the URL and saves it to a file in the specified directory.
+- **extract_css.py:** Extracts linked CSS files from the URL and saves them in the specified directory.
+- **extract_inline_css.py:** Extracts inline CSS styles from the HTML content and saves them to a specified file.
+- **extract_js.py:** Extracts linked JavaScript files from the URL and saves them in the specified directory.
+- **extract_inline_js.py:** Extracts inline JavaScript from the HTML content and saves them to a specified file.
+- **compress_files.py:** Compresses all extracted files into a ZIP archive, saving it with the specified name.
 
 ## Contributing
 
