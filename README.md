@@ -33,6 +33,10 @@ Install the necessary Python packages using pip:
 
 `pip install -r requirements.txt`
 
+Install frontend dependencies for Tailwind CSS:
+
+`npm install`
+
 ## Usage
 
 ### Command-Line Usage
@@ -66,6 +70,14 @@ This command will extract the HTML, CSS, and JavaScript files from https://examp
 Run the Flask web server:
 
 `python app.py`
+
+Build Tailwind CSS (required before loading the page styles):
+
+`npm run build-css`
+
+Optional: keep CSS rebuilding while you edit templates:
+
+`npm run watch-css`
 
 Access the web form:
 
