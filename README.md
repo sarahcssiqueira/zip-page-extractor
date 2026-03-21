@@ -73,6 +73,28 @@ Visit http://127.0.0.1:5000/ in your browser. Submit the URL to extract HTML, CS
 
 Note: When using the web form, the provided URL will be used by all extraction scripts (HTML, CSS, JS). The URL in the .env file is only used when running the scripts locally without a provided URL.
 
+## Deploy to Vercel
+
+This project includes a `vercel.json` config and a serverless entrypoint at `api/index.py`.
+
+1. Install Vercel CLI:
+
+`npm i -g vercel`
+
+2. Login to Vercel:
+
+`vercel login`
+
+3. Deploy from the project root:
+
+`vercel`
+
+4. For production deploy:
+
+`vercel --prod`
+
+After deployment, Vercel will provide a public URL where the Flask form is available.
+
 ## Scripts Overview
 
 - **extract_html.py:** Extracts HTML content from the URL and saves it to a file in the specified directory.
