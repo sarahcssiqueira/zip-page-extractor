@@ -4,9 +4,13 @@
     "bootstrap": "^5.3.3"
   },
   "devDependencies": {
-    "sass": "^1.78.0"
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "sass": "^1.78.0",
+    "tailwindcss": "^3.4.17"
   },
   "scripts": {
-   "build-css": "sass ./assets/css/custom-bootstrap.scss ./assets/css/custom-bootstrap.css"
-}
+    "build-css": "tailwindcss -i ./src/style/tailwind.css -o ./static/css/main.css --minify",
+    "watch-css": "tailwindcss -i ./src/style/tailwind.css -o ./static/css/main.css --watch"
+  }
 }

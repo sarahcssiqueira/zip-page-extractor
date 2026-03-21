@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zip Page Extractor</title>
-    <link rel="stylesheet" href="../static/css/custom-bootstrap.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-<body>
-    <div class="container mt-5">
-        <h1 class="text-primary mb-4">Zip Page Extractor</h1>
-        <p class="text-muted">Enter a website URL to extract its HTML, CSS, and JavaScript files, and download them as a ZIP archive.</p>
+<body class="min-h-screen bg-paper text-ink antialiased">
+    <main class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(207,75,46,0.25),transparent_45%),radial-gradient(circle_at_85%_10%,rgba(31,29,36,0.18),transparent_50%)]"></div>
 
-        <form action="/" method="post" class="row g-3">
-            <div class="col-md-8">
-                <label for="url" class="form-label">Enter URL:</label>
-                <input type="url" id="url" name="url" class="form-control" placeholder="https://example.com" required>
-            </div>
+        <section class="relative mx-auto flex min-h-screen w-full max-w-4xl items-center px-6 py-16">
+            <div class="w-full rounded-3xl border border-ink/10 bg-white/80 p-8 shadow-2xl backdrop-blur md:p-12">
+                <p class="mb-3 inline-flex rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-ink/75">Web Archive Utility</p>
+                <h1 class="text-4xl font-black leading-tight md:text-5xl">Zip Page Extractor</h1>
+                <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 md:text-lg">Paste any public URL and generate a downloadable ZIP with extracted HTML, CSS, and JavaScript resources.</p>
 
-            <div class="col-md-4 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-75">Extract</button>
+                <form action="/" method="post" class="mt-8 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+                    <div>
+                        <label for="url" class="mb-2 block text-sm font-semibold uppercase tracking-wide text-ink/70">Website URL</label>
+                        <input type="url" id="url" name="url" class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base text-ink placeholder:text-ink/45 shadow-sm outline-none transition focus:border-ember focus:ring-2 focus:ring-ember/25" placeholder="https://example.com" required>
+                    </div>
+                    <button type="submit" class="rounded-xl bg-ink px-6 py-3 text-sm font-bold uppercase tracking-wide text-paper transition hover:-translate-y-0.5 hover:bg-ember focus:outline-none focus:ring-2 focus:ring-ember/40">Extract ZIP</button>
+                </form>
             </div>
-        </form>
-    </div>
+        </section>
+    </main>
 
 </body>
 
