@@ -9,6 +9,7 @@ def run_extraction_scripts(url=None, output_dir=None):
     commands = [
         f"{base_command} extract_html.py --url {url} --output-dir {output_dir}",
         f"{base_command} extract_css.py --url {url} --output-dir {output_dir}",
+        f"{base_command} extract_assets.py --url {url} --output-dir {output_dir}",
         f"{base_command} extract_inline_css.py --url {url} --output-file {output_dir}/inline_styles.css",
         f"{base_command} extract_js.py --url {url} --output-dir {output_dir}",
         f"{base_command} extract_inline_js.py --url {url} --output-file {output_dir}/inline_scripts.js"

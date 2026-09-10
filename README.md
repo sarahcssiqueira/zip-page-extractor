@@ -49,6 +49,10 @@ Extract CSS:
 
 `python scripts/extract_css.py --url "https://example.com" --output-dir tmp/output`
 
+Extract linked images, icons, media, fonts, and preload assets:
+
+`python scripts/extract_assets.py --url "https://example.com" --output-dir tmp/output`
+
 Replace "https://example.com" with your target URL and output with your desired directory.
 
 Compress the files:
@@ -65,7 +69,7 @@ To run all extraction scripts (HTML, CSS, JavaScript) in a single command, use t
 
 `python run_all.py --url <your-url> --output-dir <output-directory>`
 
-This command will extract the HTML, CSS, and JavaScript files from https://example.com and store them in the output directory.
+This command will extract the HTML, CSS, JavaScript, and linked assets from https://example.com and store them in the output directory.
 
 ### Web-Based Usage
 

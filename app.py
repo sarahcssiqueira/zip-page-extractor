@@ -4,6 +4,7 @@ import shutil
 import tempfile
 from scripts.extract_html import extract_html
 from scripts.extract_css import extract_css
+from scripts.extract_assets import extract_assets
 from compress_files import compress_files, default_archive_name
 from dotenv import load_dotenv
 
@@ -25,7 +26,7 @@ def index():
         # Run extraction using the URL from the form for all scripts
         extract_html(url, output_dir)
         extract_css(url, output_dir)  # Ensure the form URL is passed to each script
-        # Add other script calls here
+        extract_assets(url, output_dir)
 
         # Compress the output files
         zip_name = os.path.basename(os.getenv("ZIP_FILE") or default_archive_name(url))
