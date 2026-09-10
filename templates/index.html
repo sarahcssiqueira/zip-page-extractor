@@ -97,7 +97,9 @@
                 const downloadUrl = URL.createObjectURL(request.response);
                 const link = document.createElement("a");
                 link.href = downloadUrl;
-                link.download = "pagefetcher.zip";
+                const disposition = request.getResponseHeader("Content-Disposition") || "";
+                const filename = disposition.match(/filename="?([^";]+)"?/i);
+                link.download = filename ? filename[1] : "pagefetcher.zip";
                 link.click();
                 URL.revokeObjectURL(downloadUrl);
                 submitButton.disabled = false;

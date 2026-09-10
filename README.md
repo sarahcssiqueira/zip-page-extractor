@@ -59,7 +59,7 @@ Compress the files:
 
 After extracting, compress them into a ZIP archive:
 
-By default, the archive is saved as `tmp/siteurl-YYYYMMDD.zip`. To choose a different name:
+By default, the archive is saved as `tmp/pagefetcher-siteurl-YYYYMMDD.zip`. To choose a different name:
 
 `python compress_files.py --output-dir tmp/output --zip-file tmp/archive.zip`
 
