@@ -2,6 +2,7 @@
 .env
 /node_modules
 /venv
+/ven
 /output
 archive.zip
 scripts/__pycache__
