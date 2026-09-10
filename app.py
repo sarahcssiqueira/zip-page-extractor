@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from flask import Flask, after_this_request, render_template, request, send_file
 import os
 import shutil
@@ -33,8 +35,16 @@ def index():
         zip_file = os.path.join(work_dir, zip_name)
         compress_files(output_dir, zip_file)
 
-        # Serve the ZIP file
-        return send_file(zip_file, as_attachment=True, download_name=zip_name)
+        # Read the archive before the response cleanup removes the work directory.
+        with open(zip_file, "rb") as archive:
+            archive_data = BytesIO(archive.read())
+
+        return send_file(
+            archive_data,
+            as_attachment=True,
+            download_name=zip_name,
+            mimetype="application/zip",
+        )
 
     return render_template("index.html")
 
