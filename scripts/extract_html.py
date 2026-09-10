@@ -12,7 +12,8 @@ def extract_html(url=None, output_dir=None):
     if not output_dir:
         output_dir = os.getenv('OUTPUT_DIR', 'tmp/output')
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=20)
+    response.raise_for_status()
     soup = BeautifulSoup(response.text, 'html.parser')
     
     os.makedirs(output_dir, exist_ok=True)

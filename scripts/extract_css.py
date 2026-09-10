@@ -13,14 +13,20 @@ def extract_css(url=None, output_dir=None):
     if not output_dir:
         output_dir = os.getenv('OUTPUT_DIR', 'tmp/output')
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=20)
+    response.raise_for_status()
     soup = BeautifulSoup(response.text, 'html.parser')
 
     os.makedirs(output_dir, exist_ok=True)
 
     for link in soup.find_all('link', rel='stylesheet'):
         css_url = urljoin(url, link.get('href'))
-        css_response = requests.get(css_url)
+        try:
+            css_response = requests.get(css_url, timeout=20)
+        except requests.RequestException:
+            continue
+        if not css_response.ok:
+            continue
 
         css_filename = os.path.join(output_dir, os.path.basename(css_url))
 
