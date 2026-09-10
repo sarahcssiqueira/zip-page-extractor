@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zip Page Extractor</title>
+    <title>PageFetcher | Fetch webpages into portable projects</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body class="min-h-screen bg-paper text-ink antialiased">
@@ -13,19 +13,106 @@
         <section class="relative mx-auto flex min-h-screen w-full max-w-4xl items-center px-6 py-16">
             <div class="w-full rounded-3xl border border-ink/10 bg-white/80 p-8 shadow-2xl backdrop-blur md:p-12">
                 <p class="mb-3 inline-flex rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-ink/75">Web Archive Utility</p>
-                <h1 class="text-4xl font-black leading-tight md:text-5xl">Zip Page Extractor</h1>
-                <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 md:text-lg">Paste any public URL and generate a downloadable ZIP with extracted HTML, CSS, and JavaScript resources.</p>
+                <h1 class="text-4xl font-black leading-tight md:text-5xl">PageFetcher</h1>
+                <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 md:text-lg">Fetch webpages into portable projects by turning a public URL into a downloadable ZIP of its HTML, CSS, JavaScript, and assets.</p>
 
-                <form action="/" method="post" class="mt-8 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+                <form id="extract-form" action="/" method="post" class="mt-8 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
                     <div>
                         <label for="url" class="mb-2 block text-sm font-semibold uppercase tracking-wide text-ink/70">Website URL</label>
                         <input type="url" id="url" name="url" class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base text-ink placeholder:text-ink/45 shadow-sm outline-none transition focus:border-ember focus:ring-2 focus:ring-ember/25" placeholder="https://example.com" required>
                     </div>
-                    <button type="submit" class="rounded-xl bg-ink px-6 py-3 text-sm font-bold uppercase tracking-wide text-paper transition hover:-translate-y-0.5 hover:bg-ember focus:outline-none focus:ring-2 focus:ring-ember/40">Extract ZIP</button>
+                    <button id="submit-button" type="submit" class="rounded-xl bg-ink px-6 py-3 text-sm font-bold uppercase tracking-wide text-paper transition hover:-translate-y-0.5 hover:bg-ember focus:outline-none focus:ring-2 focus:ring-ember/40">Extract ZIP</button>
                 </form>
+
+                <section id="progress-panel" class="mt-6 hidden rounded-2xl border border-ink/10 bg-paper/70 p-4" aria-live="polite">
+                    <div class="flex items-center justify-between gap-4">
+                        <p id="progress-status" class="text-sm font-semibold text-ink">Preparing your download...</p>
+                        <p id="progress-percent" class="text-sm font-bold text-ember" aria-hidden="true"></p>
+                    </div>
+                    <div class="mt-3 h-3 overflow-hidden rounded-full bg-ink/10" role="progressbar" aria-label="Page extraction progress" aria-valuemin="0" aria-valuemax="100" aria-valuetext="Preparing your download">
+                        <div id="progress-bar" class="h-full w-1/3 rounded-full bg-ember transition-[width] duration-300"></div>
+                    </div>
+                    <p id="progress-help" class="mt-3 text-xs leading-relaxed text-ink/65">Large pages may take a little longer while their files are collected and compressed.</p>
+                </section>
+
+                <p id="progress-error" class="mt-4 hidden rounded-xl border border-red-900/15 bg-red-50 px-4 py-3 text-sm font-semibold text-red-900" role="alert"></p>
             </div>
         </section>
     </main>
+
+    <script>
+        const form = document.getElementById("extract-form");
+        const submitButton = document.getElementById("submit-button");
+        const progressPanel = document.getElementById("progress-panel");
+        const progressStatus = document.getElementById("progress-status");
+        const progressPercent = document.getElementById("progress-percent");
+        const progressBar = document.getElementById("progress-bar");
+        const progressError = document.getElementById("progress-error");
+        const progressTrack = progressBar.parentElement;
+
+        const setProgress = (percent, text) => {
+            progressBar.classList.remove("w-1\/3", "animate-pulse");
+            progressBar.style.width = `${percent}%`;
+            progressStatus.textContent = text;
+            progressPercent.textContent = `${percent}%`;
+            progressTrack.setAttribute("aria-valuenow", percent);
+            progressTrack.setAttribute("aria-valuetext", `${text} ${percent}%`);
+        };
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            progressPanel.classList.remove("hidden");
+            progressError.classList.add("hidden");
+            progressBar.classList.add("animate-pulse");
+            progressBar.style.width = "35%";
+            progressStatus.textContent = "Fetching and packaging page files...";
+            progressPercent.textContent = "";
+            progressTrack.removeAttribute("aria-valuenow");
+            progressTrack.setAttribute("aria-valuetext", "Fetching and packaging page files");
+            submitButton.disabled = true;
+            submitButton.classList.add("cursor-wait", "opacity-60");
+
+            const request = new XMLHttpRequest();
+            request.open("POST", form.action);
+            request.responseType = "blob";
+            request.setRequestHeader("Accept", "application/zip");
+            request.onprogress = (download) => {
+                if (!download.lengthComputable) {
+                    progressStatus.textContent = "Packaging complete. Preparing your download...";
+                    return;
+                }
+                const percent = Math.round((download.loaded / download.total) * 100);
+                setProgress(percent, "Downloading your ZIP...");
+            };
+            request.onload = () => {
+                if (request.status < 200 || request.status >= 300) {
+                    progressError.textContent = "The page could not be extracted. Please check the URL and try again.";
+                    progressError.classList.remove("hidden");
+                    progressStatus.textContent = "Extraction failed";
+                    submitButton.disabled = false;
+                    submitButton.classList.remove("cursor-wait", "opacity-60");
+                    return;
+                }
+                setProgress(100, "Download ready");
+                const downloadUrl = URL.createObjectURL(request.response);
+                const link = document.createElement("a");
+                link.href = downloadUrl;
+                link.download = "pagefetcher.zip";
+                link.click();
+                URL.revokeObjectURL(downloadUrl);
+                submitButton.disabled = false;
+                submitButton.classList.remove("cursor-wait", "opacity-60");
+            };
+            request.onerror = () => {
+                progressError.textContent = "The extraction failed. Please check the URL and try again.";
+                progressError.classList.remove("hidden");
+                progressStatus.textContent = "Extraction failed";
+                submitButton.disabled = false;
+                submitButton.classList.remove("cursor-wait", "opacity-60");
+            };
+            request.send(new FormData(form));
+        });
+    </script>
 
 </body>
 

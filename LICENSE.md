@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) [2024] [Zip Page Extractor]
+Copyright (c) [2024] [PageFetcher]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

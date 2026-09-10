@@ -18,7 +18,7 @@ load_dotenv()
 def index():
     if request.method == "POST":
         url = request.form.get("url")
-        work_dir = tempfile.mkdtemp(prefix="zip-page-extractor-", dir=tempfile.gettempdir())
+        work_dir = tempfile.mkdtemp(prefix="pagefetcher-", dir=tempfile.gettempdir())
         output_dir = os.path.join(work_dir, "output")
 
         @after_this_request

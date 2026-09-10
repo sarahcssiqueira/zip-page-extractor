@@ -1,17 +1,17 @@
-# Zip Page Extractor
+# PageFetcher
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Release Version](https://img.shields.io/github/release/sarahcssiqueira/zip-page-extractor.svg)](https://github.com/sarahcssiqueira/zip-page-extractor/releases/latest)
 [![Support Level](https://img.shields.io/badge/support-may_take_time-yellow.svg)](#support-level)
 
-A Python-based tool for web scraping and content archiving, extracting HTML, CSS, and JavaScript files from a given URL. It also compresses the extracted files into a single ZIP archive for easy distribution. 
+Fetch webpages into portable projects. PageFetcher extracts a page's HTML, CSS, JavaScript, and linked assets from a public URL, then packages the result as a ZIP archive for easy distribution.
 
 ## Features
 
-- Extracts HTML, CSS, and JavaScript from a web page.
-- Compresses extracted files into a ZIP archive.
-- Supports both local command-line execution and web-based extraction via a form.
+- Extracts HTML, CSS, JavaScript, and linked assets from a webpage.
+- Packages extracted files into a portable ZIP project.
+- Supports local command-line execution and web-based extraction through a form.
 
 ## Installation
 
