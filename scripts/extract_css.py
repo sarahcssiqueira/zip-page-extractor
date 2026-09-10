@@ -11,7 +11,7 @@ def extract_css(url=None, output_dir=None):
     if not url:
         url = os.getenv('BASE_URL')  # Fallback to URL from .env if none provided
     if not output_dir:
-        output_dir = os.getenv('OUTPUT_DIR', 'output')
+        output_dir = os.getenv('OUTPUT_DIR', 'tmp/output')
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')

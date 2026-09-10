@@ -4,7 +4,7 @@ import shutil
 import tempfile
 from scripts.extract_html import extract_html
 from scripts.extract_css import extract_css
-from compress_files import compress_files
+from compress_files import compress_files, default_archive_name
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -28,12 +28,12 @@ def index():
         # Add other script calls here
 
         # Compress the output files
-        zip_name = os.path.basename(os.getenv("ZIP_FILE", "archive.zip"))
+        zip_name = os.path.basename(os.getenv("ZIP_FILE") or default_archive_name(url))
         zip_file = os.path.join(work_dir, zip_name)
         compress_files(output_dir, zip_file)
 
         # Serve the ZIP file
-        return send_file(zip_file, as_attachment=True, download_name="archive.zip")
+        return send_file(zip_file, as_attachment=True, download_name=zip_name)
 
     return render_template("index.html")
 

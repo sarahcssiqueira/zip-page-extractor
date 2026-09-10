@@ -43,11 +43,11 @@ Install frontend dependencies for Tailwind CSS:
 
 To run the extraction scripts individually:
 
-`python scripts/extract_html.py --url "https://example.com" --output-dir output`
+`python scripts/extract_html.py --url "https://example.com" --output-dir tmp/output`
 
 Extract CSS:
 
-`python scripts/extract_css.py --url "https://example.com" --output-dir output`
+`python scripts/extract_css.py --url "https://example.com" --output-dir tmp/output`
 
 Replace "https://example.com" with your target URL and output with your desired directory.
 
@@ -55,7 +55,9 @@ Compress the files:
 
 After extracting, compress them into a ZIP archive:
 
-`python compress_files.py --output-dir output --zip-file archive.zip`
+By default, the archive is saved as `tmp/siteurl-YYYYMMDD.zip`. To choose a different name:
+
+`python compress_files.py --output-dir tmp/output --zip-file tmp/archive.zip`
 
 - Running All Scripts with a Single Command
 

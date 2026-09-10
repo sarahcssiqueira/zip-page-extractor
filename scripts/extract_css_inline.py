@@ -10,7 +10,9 @@ def extract_inline_css(url=None, output_file=None):
     if not url:
         url = os.getenv('BASE_URL')  # Fallback to URL from .env if none provided
     if not output_file:
-        output_file = os.getenv('OUTPUT_DIR', 'inline_styles.css')
+        output_file = os.path.join(os.getenv('OUTPUT_DIR', 'tmp/output'), 'inline_styles.css')
+
+    os.makedirs(os.path.dirname(output_file) or '.', exist_ok=True)
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
