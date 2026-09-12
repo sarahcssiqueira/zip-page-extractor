@@ -12,7 +12,7 @@ def default_archive_name(url=None):
     url = url or os.getenv("BASE_URL")
     hostname = urlparse(url).hostname if url else None
     site_name = (hostname or "siteurl").removeprefix("www.")
-    return f"{site_name}-{date.today():%Y%m%d}.zip"
+    return f"pagefetcher-{site_name}-{date.today():%Y%m%d}.zip"
 
 def compress_files(output_dir, zip_file):
     os.makedirs(os.path.dirname(zip_file) or ".", exist_ok=True)
